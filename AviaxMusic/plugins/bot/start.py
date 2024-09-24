@@ -89,6 +89,45 @@ async def start_pm(client, message: Message, _):
                 )
     else:
         out = private_panel(_)
+        vip = await message.reply_text(
+            f"**𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐁𝐚𝐛𝐲 ꨄ︎ {message.from_user.mention}**"
+        )
+        await vip.edit_text(f"**𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐁𝐚𝐛𝐲 ꨄ︎ {message.from_user.mention}  ❣️**")
+        await vip.edit_text(f"**𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐁𝐚𝐛𝐲 ꨄ︎ {message.from_user.mention}  🐥**")
+        await vip.edit_text(f"**𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐁𝐚𝐛𝐲 ꨄ︎ {message.from_user.mention}  ✨**")
+        await vip.edit_text(f"**𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐁𝐚𝐛𝐲 ꨄ︎ {message.from_user.mention}  😻**")
+        await vip.edit_text(f"**𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐁𝐚𝐛𝐲 ꨄ︎ {message.from_user.mention}  🎉**")
+
+        await vip.delete()
+        vips = await message.reply_text("**⚡s**")
+        await asyncio.sleep(0.2)
+        await vips.edit_text("**⚡sᴛ**")
+        await asyncio.sleep(0.2)
+        await vips.edit_text("**⚡sᴛᴀ**")
+        await asyncio.sleep(0.2)
+        await vips.edit_text("**⚡sᴛᴀʀ**")
+        await asyncio.sleep(0.2)
+        await vips.edit_text("**⚡sᴛᴀʀᴛ**")
+        await asyncio.sleep(0.2)
+        await vips.edit_text("**⚡sᴛᴀʀᴛɪɴ**")
+        await asyncio.sleep(0.2)
+        await vips.edit_text("**⚡sᴛᴀʀᴛɪɴɢ.**")
+        await asyncio.sleep(0.2)
+        await vips.edit_text("**⚡sᴛᴀʀᴛɪɴɢ..**")
+        await asyncio.sleep(0.2)
+        await vips.edit_text("**⚡sᴛᴀʀᴛɪɴɢ...**")
+        await asyncio.sleep(0.1)
+        await vips.edit_text("**⚡sᴛᴀʀᴛɪɴɢ.**")
+        await asyncio.sleep(0.1)
+        await vips.edit_text("**⚡sᴛᴀʀᴛɪɴɢ....**")
+        await asyncio.sleep(0.1)
+        await vips.edit_text("**⚡sᴛᴀʀᴛɪɴɢ.**")
+
+        await vips.delete()
+
+        done = await message.reply_text("💞")
+        await asyncio.sleep(0.5)
+        await done.delete()
         UP, CPU, RAM, DISK = await bot_sys_stats()
         await message.reply_photo(
             photo=config.START_IMG_URL,
