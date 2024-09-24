@@ -250,95 +250,75 @@ async def start_comm(client, message: Message, _):
         done = await message.reply_text("💞")
         await asyncio.sleep(0.5)
         await done.delete()
-        await message.reply_photo
-        photo=config.START_IMG_URL
-            
-            key = InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(text=_["S_B_8"], url=link),
-                        InlineKeyboardButton(text=_["S_B_9"], url=config.SUPPORT_GROUP),
-                    ],
-                ]
-            )
-            await m.delete()
-            await app.send_photo(
-                chat_id=message.chat.id,
-                photo=thumbnail,
-                caption=searched_text,
-                reply_markup=key,
-            )
-            if await is_on_off(2):
-                return await app.send_message(
-                    chat_id=config.LOG_GROUP_ID,
-                    text=f"{message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ ᴛᴏ ᴄʜᴇᴄᴋ <b>ᴛʀᴀᴄᴋ ɪɴғᴏʀᴍᴀᴛɪᴏɴ</b>.\n\n<b>ᴜsᴇʀ ɪᴅ :</b> <code>{message.from_user.id}</code>\n<b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}",
-                )
-    else:
-        out = private_panel(_)
-        UP, CPU, RAM, DISK = await bot_sys_stats()
         await message.reply_photo(
             photo=config.START_IMG_URL,
-            caption=_["start_2"].format(message.from_user.mention, app.mention, UP, DISK, CPU, RAM),
+            caption=_["start_2"].format(message.from_user.mention, app.mention),
             reply_markup=InlineKeyboardMarkup(out),
         )
-        if await is_on_off(2):
+        if await is_on_off(config.LOG):
+            sender_id = message.from_user.id
+            sender_name = message.from_user.first_name
             return await app.send_message(
-                chat_id=config.LOG_GROUP_ID,
-                text=f"{message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ.\n\n<b>ᴜsᴇʀ ɪᴅ :</b> <code>{message.from_user.id}</code>\n<b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}",
+                config.LOG_GROUP_ID,
+                f"{message.from_user.mention} ʜᴀs sᴛᴀʀᴛᴇᴅ ʙᴏᴛ. \n\n**ᴜsᴇʀ ɪᴅ :** {sender_id}\n**ᴜsᴇʀ ɴᴀᴍᴇ:** {sender_name}",
             )
 
 
 @app.on_message(filters.command(["start"]) & filters.group & ~BANNED_USERS)
 @LanguageStart
-async def start_gp(client, message: Message, _):
-    out = start_panel(_)
+async def testbot(client, message: Message, _):
+    photo_file = await app.download_media(message.chat.photo.big_file_id)
+    out = alive_panel(_)
     uptime = int(time.time() - _boot_)
-    await message.reply_photo(
-        photo=config.START_IMG_URL,
-        caption=_["start_1"].format(app.mention, get_readable_time(uptime)),
-        reply_markup=InlineKeyboardMarkup(out),
-    )
+    chat_id = message.chat.id
+    if photo_file:
+        await message.reply_photo(
+            photo=photo_file,
+            caption=_["start_7"].format(app.mention, get_readable_time(uptime)),
+            reply_markup=InlineKeyboardMarkup(out),
+        )
+    else:
+        await message.reply_photo(
+            photo=config.START_IMG_URL,
+            caption=_["start_7"].format(app.mention, get_readable_time(uptime)),
+            reply_markup=InlineKeyboardMarkup(out),
+        )
     return await add_served_chat(message.chat.id)
 
 
-@app.on_message(filters.new_chat_members, group=-1)
+@app.on_message(filters.new_chat_members, group=3)
 async def welcome(client, message: Message):
+    chat_id = message.chat.id
+    if config.PRIVATE_BOT_MODE == str(True):
+        if not await is_served_private_chat(message.chat.id):
+            await message.reply_text(
+                "**ᴛʜɪs ʙᴏᴛ's ᴘʀɪᴠᴀᴛᴇ ᴍᴏᴅᴇ ʜᴀs ʙᴇᴇɴ ᴇɴᴀʙʟᴇᴅ ᴏɴʟʏ ᴍʏ ᴏᴡɴᴇʀ ᴄᴀɴ ᴜsᴇ ᴛʜɪs ɪғ ᴡᴀɴᴛ ᴛᴏ ᴜsᴇ ᴛʜɪs ɪɴ ʏᴏᴜʀ ᴄʜᴀᴛ sᴏ sᴀʏ ᴛᴏ ᴍʏ ᴏᴡɴᴇʀ ᴛᴏ ᴀᴜᴛʜᴏʀɪᴢᴇ ʏᴏᴜʀ ᴄʜᴀᴛ."
+            )
+            return await app.leave_chat(message.chat.id)
+    else:
+        await add_served_chat(chat_id)
     for member in message.new_chat_members:
         try:
             language = await get_lang(message.chat.id)
             _ = get_string(language)
-            if await is_banned_user(member.id):
-                try:
-                    await message.chat.ban_member(member.id)
-                except:
-                    pass
             if member.id == app.id:
-                if message.chat.type != ChatType.SUPERGROUP:
-                    await message.reply_text(_["start_4"])
-                    return await app.leave_chat(message.chat.id)
-                if message.chat.id in await blacklisted_chats():
-                    await message.reply_text(
-                        _["start_5"].format(
-                            app.mention,
-                            f"https://t.me/{app.username}?start=sudolist",
-                            config.SUPPORT_GROUP,
-                        ),
-                        disable_web_page_preview=True,
-                    )
-                    return await app.leave_chat(message.chat.id)
-
-                out = start_panel(_)
+                photo_file = await app.download_media(message.chat.photo.big_file_id)
+                userbot = await get_assistant(message.chat.id)
+                out = start_pannel(_)
                 await message.reply_photo(
-                    photo=config.START_IMG_URL,
-                    caption=_["start_3"].format(
-                        message.from_user.first_name,
-                        app.mention,
-                        message.chat.title,
-                        app.mention,
-                    ),
+                    photo=photo_file,
+                    caption=_["start_2"],
                     reply_markup=InlineKeyboardMarkup(out),
                 )
-                await add_served_chat(message.chat.id)
-                await message.stop_propagation()
-        except Exception as ex:
-            print(ex)
+            if member.id in config.OWNER_ID:
+                return await message.reply_text(
+                    _["start_3"].format(app.mention, member.mention)
+                )
+            if member.id in SUDOERS:
+                return await message.reply_text(
+                    _["start_4"].format(app.mention, member.mention)
+                )
+            return
+        except:
+
+            return
