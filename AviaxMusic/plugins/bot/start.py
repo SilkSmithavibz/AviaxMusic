@@ -1,4 +1,4 @@
-import asyncio
+
 import time
 
 from pyrogram import filters
@@ -25,42 +25,12 @@ from AviaxMusic.utils.inline import help_pannel, private_panel, start_panel
 from config import BANNED_USERS
 from strings import get_string
 
-loop = asyncio.get_running_loop()
-
-
-@app.on_message(group=-1)
-async def ban_new(client, message):
-    user_id = (
-        message.from_user.id if message.from_user and message.from_user.id else 777000
-    )
-    chat_name = message.chat.title if message.chat.title else ""
-    if await is_banned_user(user_id):
-        try:
-            alert_message = f"😳"
-            BAN = await message.chat.ban_member(user_id)
-            if BAN:
-                await message.reply_text(alert_message)
-        except:
-            pass
-
-
-@app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
-@LanguageStart
-async def start_comm(client, message: Message, _):
-    chat_id = message.chat.id
-    await add_served_user(message.from_user.id)
-    await message.react("❤️‍🔥")
-    if len(message.text.split()) > 1:
-        name = message.text.split(None, 1)[1]
-        if name[0:4] == "help":
-            keyboard = InlineKeyboardMarkup(
-                paginate_modules(0, HELPABLE, "help", close=True)
-            )
             
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
 @LanguageStart
 async def start_pm(client, message: Message, _):
     await add_served_user(message.from_user.id)
+    await message.react("❤️‍🔥")
     if len(message.text.split()) > 1:
         name = message.text.split(None, 1)[1]
         if name[0:4] == "help":
