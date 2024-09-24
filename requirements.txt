@@ -8,7 +8,6 @@ gitpython
 hachoir
 heroku3
 motor
-httpx[http2]
 NumPy==1.3.0
 opencv-python
 pillow==9.5.0
