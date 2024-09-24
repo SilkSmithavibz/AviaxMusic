@@ -256,7 +256,7 @@ async def start_comm(client, message: Message, _):
             reply_markup=InlineKeyboardMarkup(out),
         )
         
-            sender_id = message.from_user.id
+            
             sender_name = message.from_user.first_name
             return await app.send_message(
                 config.LOG_GROUP_ID,
