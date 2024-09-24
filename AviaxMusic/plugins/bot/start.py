@@ -24,6 +24,24 @@ from AviaxMusic.utils.inline import help_pannel, private_panel, start_panel
 from config import BANNED_USERS
 from strings import get_string
 
+@app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
+@LanguageStart
+async def start_comm(client, message: Message, _):
+    chat_id = message.chat.id
+    await add_served_user(message.from_user.id)
+    await message.react("❤️‍🔥")
+    if len(message.text.split()) > 1:
+        name = message.text.split(None, 1)[1]
+        if name[0:4] == "help":
+            keyboard = InlineKeyboardMarkup(
+                paginate_modules(0, HELPABLE, "help", close=True)
+            )
+            if config.START_IMG_URL:
+                return await message.reply_photo(
+                    photo=START_IMG_URL,
+                    caption=_["help_1"],
+                    reply_markup=keyboard,
+                )
 
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
 @LanguageStart
@@ -39,10 +57,7 @@ async def start_pm(client, message: Message, _):
                 protect_content=True,
                 reply_markup=keyboard,
             )
-            async def start_comm(client, message: Message, _):
-    chat_id = message.chat.id
-    await add_served_user(message.from_user.id)
-    await message.react("❤️‍🔥")
+           
         if name[0:3] == "sud":
             await sudoers_list(client=client, message=message, _=_)
             if await is_on_off(2):
