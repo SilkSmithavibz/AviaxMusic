@@ -8,7 +8,7 @@ gitpython
 hachoir
 heroku3
 motor
-NumPy==1.3.0
+numpy
 opencv-python
 pillow==9.5.0
 psutil
