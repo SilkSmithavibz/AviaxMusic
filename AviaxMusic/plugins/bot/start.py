@@ -1,4 +1,3 @@
-import asyncio
 import time
 
 from pyrogram import filters
@@ -25,12 +24,11 @@ from AviaxMusic.utils.inline import help_pannel, private_panel, start_panel
 from config import BANNED_USERS
 from strings import get_string
 
-            
+
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
 @LanguageStart
 async def start_pm(client, message: Message, _):
     await add_served_user(message.from_user.id)
-    await message.react("❤️‍🔥")
     if len(message.text.split()) > 1:
         name = message.text.split(None, 1)[1]
         if name[0:4] == "help":
@@ -41,7 +39,6 @@ async def start_pm(client, message: Message, _):
                 protect_content=True,
                 reply_markup=keyboard,
             )
-           
         if name[0:3] == "sud":
             await sudoers_list(client=client, message=message, _=_)
             if await is_on_off(2):
@@ -89,45 +86,6 @@ async def start_pm(client, message: Message, _):
                 )
     else:
         out = private_panel(_)
-        vip = await message.reply_text(
-            f"**𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐁𝐚𝐛𝐲 ꨄ︎ {message.from_user.mention}**"
-        )
-        await vip.edit_text(f"**𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐁𝐚𝐛𝐲 ꨄ︎ {message.from_user.mention}  ❣️**")
-        await vip.edit_text(f"**𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐁𝐚𝐛𝐲 ꨄ︎ {message.from_user.mention}  🐥**")
-        await vip.edit_text(f"**𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐁𝐚𝐛𝐲 ꨄ︎ {message.from_user.mention}  ✨**")
-        await vip.edit_text(f"**𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐁𝐚𝐛𝐲 ꨄ︎ {message.from_user.mention}  😻**")
-        await vip.edit_text(f"**𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐁𝐚𝐛𝐲 ꨄ︎ {message.from_user.mention}  🎉**")
-
-        await vip.delete()
-        vips = await message.reply_text("**⚡s**")
-        await asyncio.sleep(0.2)
-        await vips.edit_text("**⚡sᴛ**")
-        await asyncio.sleep(0.2)
-        await vips.edit_text("**⚡sᴛᴀ**")
-        await asyncio.sleep(0.2)
-        await vips.edit_text("**⚡sᴛᴀʀ**")
-        await asyncio.sleep(0.2)
-        await vips.edit_text("**⚡sᴛᴀʀᴛ**")
-        await asyncio.sleep(0.2)
-        await vips.edit_text("**⚡sᴛᴀʀᴛɪɴ**")
-        await asyncio.sleep(0.2)
-        await vips.edit_text("**⚡sᴛᴀʀᴛɪɴɢ.**")
-        await asyncio.sleep(0.2)
-        await vips.edit_text("**⚡sᴛᴀʀᴛɪɴɢ..**")
-        await asyncio.sleep(0.2)
-        await vips.edit_text("**⚡sᴛᴀʀᴛɪɴɢ...**")
-        await asyncio.sleep(0.1)
-        await vips.edit_text("**⚡sᴛᴀʀᴛɪɴɢ.**")
-        await asyncio.sleep(0.1)
-        await vips.edit_text("**⚡sᴛᴀʀᴛɪɴɢ....**")
-        await asyncio.sleep(0.1)
-        await vips.edit_text("**⚡sᴛᴀʀᴛɪɴɢ.**")
-
-        await vips.delete()
-
-        done = await message.reply_text("💞")
-        await asyncio.sleep(0.5)
-        await done.delete()
         UP, CPU, RAM, DISK = await bot_sys_stats()
         await message.reply_photo(
             photo=config.START_IMG_URL,
@@ -195,4 +153,4 @@ async def welcome(client, message: Message):
                 await message.stop_propagation()
         except Exception as ex:
             print(ex)
-        
+                   
