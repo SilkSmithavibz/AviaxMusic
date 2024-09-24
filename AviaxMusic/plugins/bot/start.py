@@ -18,10 +18,8 @@ from AviaxMusic.utils.database import (
     add_served_user,
     get_assistant,
     get_lang,
-    get_userss,
     is_banned_user,
     is_on_off,
-    is_served_private_chat,
 )
 from AviaxMusic.utils.decorators.language import LanguageStart
 from AviaxMusic.utils.formatters import get_readable_time
