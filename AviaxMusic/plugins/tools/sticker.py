@@ -1,5 +1,5 @@
 from pyrogram import filters
-from ThavaXMusic import app
+from AviaxMusic import app
 
 @app.on_message(filters.command(["stickerid","stid"]))
 async def sticker_id(app: app, msg):
