@@ -128,6 +128,11 @@ async def start_pm(client, message: Message, _):
         done = await message.reply_text("💞")
         await asyncio.sleep(0.5)
         await done.delete()
+        await message.reply_sticker(
+            sticker=config.START_STICKER_ID,
+        )
+        await asyncio.sleep(0.9)
+        await done.delete()
         UP, CPU, RAM, DISK = await bot_sys_stats()
         await message.reply_photo(
             photo=config.START_IMG_URL,
