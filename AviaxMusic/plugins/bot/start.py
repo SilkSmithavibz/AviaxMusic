@@ -89,6 +89,9 @@ async def start_pm(client, message: Message, _):
                 )
     else:
         out = private_panel(_)
+        await message.reply_sticker(
+            sticker=config.START_STICKER_ID,
+        )
         vip = await message.reply_text(
             f"**𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐁𝐚𝐛𝐲 ꨄ︎ {message.from_user.mention}**"
         )
@@ -126,11 +129,6 @@ async def start_pm(client, message: Message, _):
         await vips.delete()
 
         done = await message.reply_text("💞")
-        await asyncio.sleep(0.5)
-        await done.delete()
-        await message.reply_sticker(
-            sticker=config.START_STICKER_ID,
-        )
         await asyncio.sleep(0.5)
         await done.delete()
         UP, CPU, RAM, DISK = await bot_sys_stats()
