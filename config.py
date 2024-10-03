@@ -24,8 +24,6 @@ LOG_GROUP_ID = int(getenv("LOG_GROUP_ID", None))
 # Get this value from @MissRose_Bot on Telegram by /id
 OWNER_ID = int(getenv("OWNER_ID", None))
 
-START_STICKER_ID = getenv("START_STICKER_ID", "CAACAgUAAxkBAAJ9w2b2rJFY5CItEpXSkKbPX2icOS0iAAI7DwACyd7AV2uqphhvf4F_NgQ")
-
 ## Fill these variables if you're deploying on heroku.
 # Your heroku app name
 HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
@@ -41,8 +39,8 @@ GIT_TOKEN = getenv(
     "GIT_TOKEN", None
 )  # Fill this variable if your upstream repository is private
 
-SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/Yor_Forgerr_0")
-SUPPORT_GROUP = getenv("SUPPORT_GROUP", "https://t.me/TSS_Support_Group")
+SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/spam_Grup0")
+SUPPORT_GROUP = getenv("SUPPORT_GROUP", "https://t.me/spam_Grup0")
 
 # Set this to True if you want the assistant to automatically leave chats after an interval
 AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", False))
