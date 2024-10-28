@@ -81,7 +81,7 @@ confirmer = {}
 
 
 START_IMG_URL = getenv(
-    "START_IMG_URL", "https://envs.sh/AVv.jpg"
+    "START_IMG_URL", "https://envs.sh/Axc.jpg"
 )
 PING_IMG_URL = getenv(
     "PING_IMG_URL", "https://envs.sh/AVN.jpg"
