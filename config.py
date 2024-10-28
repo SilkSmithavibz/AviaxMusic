@@ -84,7 +84,7 @@ START_IMG_URL = getenv(
     "START_IMG_URL", "https://envs.sh/AVv.jpg"
 )
 PING_IMG_URL = getenv(
-    "PING_IMG_URL", "https://envs.sh/W8m.jpg"
+    "PING_IMG_URL", "https://envs.sh/AVN.jpg"
 )
 PLAYLIST_IMG_URL = "https://envs.sh/AVp.jpg"
 STATS_IMG_URL = "https://envs.sh/AV7.jpg"
