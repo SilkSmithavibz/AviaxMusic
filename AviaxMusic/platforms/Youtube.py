@@ -1,3 +1,8 @@
+import os
+import asyncio
+from typing import Union
+import yt_dlp  # Make sure you have this installed
+
 async def download(
     self,
     link: str,
@@ -24,8 +29,8 @@ async def download(
             "no_warnings": True,
             "postprocessors": [{
                 "key": "FFmpegExtractAudio",
-                "preferredcodec": "mp3",  # Change to "wav" for lossless
-                "preferredquality": "320",  # Specify the bitrate
+                "preferredcodec": "mp3",
+                "preferredquality": "320",
             }],
         }
         x = yt_dlp.YoutubeDL(ydl_optssx)
@@ -47,7 +52,7 @@ async def download(
             "no_warnings": True,
             "postprocessors": [{
                 "key": "FFmpegVideoConvertor",
-                "preferedformat": "mp4",  # Ensure video is in MP4
+                "preferedformat": "mp4",
             }],
         }
         x = yt_dlp.YoutubeDL(ydl_optssx)
@@ -137,4 +142,4 @@ async def download(
         direct = True
         downloaded_file = await loop.run_in_executor(None, audio_dl)
     return downloaded_file, direct
-                    
+    
