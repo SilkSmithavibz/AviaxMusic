@@ -350,7 +350,6 @@ class YouTubeAPI:
             x.download([link])
 
         def song_audio_dl(link, title, format_id):
-    """Downloads the audio of the song in high-quality MP3."""
 
     # File path for saving the downloaded audio
     fpath = f"downloads/{title}.mp3"
