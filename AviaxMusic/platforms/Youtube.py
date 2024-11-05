@@ -349,27 +349,53 @@ class YouTubeAPI:
             x = yt_dlp.YoutubeDL(ydl_optssx)
             x.download([link])
 
-        def song_audio_dl():
-            fpath = f"downloads/{title}.%(ext)s"
-            ydl_optssx = {
-                "format": format_id,
-                "outtmpl": fpath,
-                "geo_bypass": True,
-                "nocheckcertificate": True,
-                "quiet": True,
-                "no_warnings": True,
-                "cookiefile" : cookie_txt_file(),
-                "prefer_ffmpeg": True,
-                "postprocessors": [
-                    {
-                        "key": "FFmpegExtractAudio",
-                        "preferredcodec": "mp3",
-                        "preferredquality": "320",
-                    }
+        def song_audio_dl(link, title, format_id):
+    """ Downloads the audio of the song in high-quality MP3. """
+    
+    # File path for saving the downloaded audio
+    fpath = f"downloads/{title}.mp3"
+
+    # yt-dlp options
+    ydl_opts = {
+        "format": "bestaudio/best",  # Choose the best audio available (could be Opus, AAC, etc.)
+        "outtmpl": fpath,  # Save the file with the given title
+        "geo_bypass": True,  # Bypass geo-restrictions
+        "nocheckcertificate": True,  # Skip SSL certificate verification
+        "quiet": True,  # Reduce output verbosity
+        "no_warnings": True,  # Suppress warnings
+        "cookiefile": cookie_txt_file(),  # Provide cookies for region bypass
+        "prefer_ffmpeg": True,  # Use FFmpeg for post-processing
+        "postprocessors": [
+            {
+                "key": "FFmpegExtractAudio",  # Use FFmpeg to extract audio
+                "preferredcodec": "mp3",  # Convert to MP3 format
+                "preferredquality": "320",  # Highest MP3 quality: 320kbps
+                "ffmpeg_location": "/usr/bin/ffmpeg",  # Ensure correct FFmpeg location (if needed)
+                "postprocessor_args": [
+                    "-vn",  # Disable video processing
+                    "-ar", "44100",  # Set the audio sample rate to 44.1kHz (standard for audio)
+                    "-ac", "2",  # Set stereo output (2 channels)
+                    "-ab", "320k",  # Set the audio bitrate to 320kbps
                 ],
             }
-            x = yt_dlp.YoutubeDL(ydl_optssx)
-            x.download([link])
+        ],
+    }
+
+    try:
+        # Use yt-dlp to download and process the video
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            # Download the audio from the link
+            info = ydl.extract_info(link, download=True)
+            audio_file = os.path.join("downloads", f"{title}.mp3")
+
+            # Check if the audio file exists and has been downloaded successfully
+            if os.path.exists(audio_file):
+                return audio_file
+            else:
+                raise Exception("Audio download failed.")
+    except Exception as e:
+        logging.error(f"Error downloading audio for {link}: {e}")
+        return None
 
         if songvideo:
             await loop.run_in_executor(None, song_video_dl)
