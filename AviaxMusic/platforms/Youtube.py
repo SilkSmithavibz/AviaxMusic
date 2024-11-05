@@ -350,8 +350,8 @@ class YouTubeAPI:
             x.download([link])
 
         def song_audio_dl(link, title, format_id):
-    """ Downloads the audio of the song in high-quality MP3. """
-    
+    """Downloads the audio of the song in high-quality MP3."""
+
     # File path for saving the downloaded audio
     fpath = f"downloads/{title}.mp3"
 
@@ -396,7 +396,6 @@ class YouTubeAPI:
     except Exception as e:
         logging.error(f"Error downloading audio for {link}: {e}")
         return None
-
 
         if songvideo:
             await loop.run_in_executor(None, song_video_dl)
