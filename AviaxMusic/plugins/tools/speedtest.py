@@ -28,6 +28,9 @@ def testspeed(m, _):
         # Get the results as a dictionary
         result = test.results.dict()
         
+        # Log the result to inspect its content
+        print("Speedtest result:", result)  # This will log the result to the console for debugging
+        
         # Check if the result is a dictionary
         if not isinstance(result, dict):
             raise ValueError("Speedtest result is not a valid dictionary.")
