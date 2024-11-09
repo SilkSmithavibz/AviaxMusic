@@ -19,7 +19,7 @@ from AviaxMusic.utils.database import (
 )
 from AviaxMusic.utils.decorators.language import LanguageStart
 from AviaxMusic.utils.formatters import get_readable_time
-from AnonXMusic.utils.inline import help_pannel, private_panel, start_panel
+from AviaxMusic.utils.inline import help_pannel, private_panel, start_panel
 from config import BANNED_USERS
 from strings import get_string
 
