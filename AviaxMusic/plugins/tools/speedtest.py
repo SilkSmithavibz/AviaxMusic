@@ -1,6 +1,6 @@
 import asyncio
 
-import speedtest
+import speedtest_cli as speedtest
 from pyrogram import filters
 from pyrogram.types import Message
 
@@ -8,6 +8,8 @@ from AviaxMusic import app
 from AviaxMusic.misc import SUDOERS
 from AviaxMusic.utils.decorators.language import language
 
+import speedtest_cli
+print(speedtest_cli.__file__)  
 
 def testspeed(m, _):
     try:
