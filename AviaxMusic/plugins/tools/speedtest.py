@@ -34,6 +34,7 @@ async def speedtest_function(client, message: Message, _):
     loop = asyncio.get_event_loop()
     result = await loop.run_in_executor(None, testspeed, m, _)
     output = _["server_15"].format(
+        result["client"]["isp"],
         result["client"]["country"],
         result["server"]["name"],
         result["server"]["country"],
