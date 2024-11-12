@@ -141,8 +141,8 @@ async def stream(
         current_queue = db.get(chat_id)
 
         
-        if current_queue is not None and len(current_queue) >= 10:
-            return await app.send_message(original_chat_id, "You can't add more than 10 songs to the queue.")
+        if current_queue is not None and len(current_queue) >= 200:
+            return await app.send_message(original_chat_id, "You can't add more than 200 songs to the queue.")
 
         try:
             file_path, direct = await YouTube.download(
