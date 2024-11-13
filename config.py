@@ -24,8 +24,6 @@ LOG_GROUP_ID = int(getenv("LOG_GROUP_ID", None))
 # Get this value from @MissRose_Bot on Telegram by /id
 OWNER_ID = int(getenv("OWNER_ID", None))
 
-START_STICKER_ID = getenv("START_STICKER_ID", "CAACAgUAAxkBAAKICGcvE7H5mFRDuHWccEaD5mnO5EV8AAJtBAACNhKYVr4t9o7EwdqXNgQ")
-
 ## Fill these variables if you're deploying on heroku.
 # Your heroku app name
 HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
@@ -34,15 +32,15 @@ HEROKU_API_KEY = getenv("HEROKU_API_KEY")
 
 UPSTREAM_REPO = getenv(
     "UPSTREAM_REPO",
-    "https://github.com/Marwin040/AviaxMusic",
+    "https://github.com/SilkSmithavibz/AviaxMusic",
 )
 UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "master")
 GIT_TOKEN = getenv(
     "GIT_TOKEN", None
 )  # Fill this variable if your upstream repository is private
 
-SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/Team_Supporty")
-SUPPORT_GROUP = getenv("SUPPORT_GROUP", "https://t.me/Team_Supporty")
+SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/VP_Music247")
+SUPPORT_GROUP = getenv("SUPPORT_GROUP", "https://t.me/Tamil_VP247")
 
 # Set this to True if you want the assistant to automatically leave chats after an interval
 AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", False))
@@ -83,13 +81,13 @@ confirmer = {}
 
 
 START_IMG_URL = getenv(
-    "START_IMG_URL", "https://graph.org/file/008f4a8c15ec78bf58df6-061436e950eff5a7b4.jpg"
+    "START_IMG_URL", "https://envs.sh/Z39.png"
 )
 PING_IMG_URL = getenv(
-    "PING_IMG_URL", "https://graph.org/file/4c73e36134792a1fb7e2d-6794a433363ce8129f.jpg"
+    "PING_IMG_URL", "https://envs.sh/ZYM.png"
 )
 PLAYLIST_IMG_URL = "https://envs.sh/_IP.jpg"
-STATS_IMG_URL = "https://graph.org/file/6c0931e09023215919ad3-39d8af3f77055ff864.jpg"
+STATS_IMG_URL = "https://envs.sh/_Ie.jpg"
 TELEGRAM_AUDIO_URL = "https://graph.org//file/2f7debf856695e0ef0607.png"
 TELEGRAM_VIDEO_URL = "https://graph.org//file/2f7debf856695e0ef0607.png"
 STREAM_IMG_URL = "https://te.legra.ph/file/bd995b032b6bd263e2cc9.jpg"
