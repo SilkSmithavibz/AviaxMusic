@@ -1,6 +1,4 @@
 import random
-import asyncio
-from datetime import date
 from typing import Dict, List, Union
 
 from AviaxMusic import userbot
@@ -9,12 +7,10 @@ from AviaxMusic.core.mongo import mongodb
 authdb = mongodb.adminauth
 authuserdb = mongodb.authuser
 autoenddb = mongodb.autoend
-autoleavedb = mongodb.autoleave
 assdb = mongodb.assistants
 blacklist_chatdb = mongodb.blacklistChat
 blockeddb = mongodb.blockedusers
 chatsdb = mongodb.chats
-chatdb = mongodb.chat
 channeldb = mongodb.cplaymode
 countdb = mongodb.upcount
 gbansdb = mongodb.gban
@@ -25,13 +21,18 @@ playtypedb = mongodb.playtypedb
 skipdb = mongodb.skipmode
 sudoersdb = mongodb.sudoers
 usersdb = mongodb.tgusersdb
+privatedb = mongodb.privatechats
+suggdb = mongodb.suggestion
+cleandb = mongodb.cleanmode
+queriesdb = mongodb.queries
+userdb = mongodb.userstats
+videodb = mongodb.vipvideocalls
 
 # Shifting to memory [mongo sucks often]
 active = []
 activevideo = []
 assistantdict = {}
 autoend = {}
-autoleave = {}
 count = {}
 channelconnect = {}
 langm = {}
@@ -42,7 +43,125 @@ pause = {}
 playmode = {}
 playtype = {}
 skipmode = {}
+privatechats = {}
+cleanmode = []
+suggestion = {}
+mute = {}
+audio = {}
+video = {}
 
+# Total Queries on bot
+
+
+async def get_queries() -> int:
+    chat_id = 98324
+    mode = await queriesdb.find_one({"chat_id": chat_id})
+    if not mode:
+        return 0
+    return mode["mode"]
+
+
+async def set_queries(mode: int):
+    chat_id = 98324
+    queries = await queriesdb.find_one({"chat_id": chat_id})
+    if queries:
+        mode = queries["mode"] + mode
+    return await queriesdb.update_one(
+        {"chat_id": chat_id}, {"$set": {"mode": mode}}, upsert=True
+    )
+
+# Top Chats DB
+
+
+async def get_top_chats() -> dict:
+    results = {}
+    async for chat in chattopdb.find({"chat_id": {"$lt": 0}}):
+        chat_id = chat["chat_id"]
+        total = 0
+        for i in chat["vidid"]:
+            counts_ = chat["vidid"][i]["spot"]
+            if counts_ > 0:
+                total += counts_
+                results[chat_id] = total
+    return results
+
+
+async def get_global_tops() -> dict:
+    results = {}
+    async for chat in chattopdb.find({"chat_id": {"$lt": 0}}):
+        for i in chat["vidid"]:
+            counts_ = chat["vidid"][i]["spot"]
+            title_ = chat["vidid"][i]["title"]
+            if counts_ > 0:
+                if i not in results:
+                    results[i] = {}
+                    results[i]["spot"] = counts_
+                    results[i]["title"] = title_
+                else:
+                    spot = results[i]["spot"]
+                    count_ = spot + counts_
+                    results[i]["spot"] = count_
+    return results
+
+
+async def get_particulars(chat_id: int) -> Dict[str, int]:
+    ids = await chattopdb.find_one({"chat_id": chat_id})
+    if not ids:
+        return {}
+    return ids["vidid"]
+
+
+async def get_particular_top(
+    chat_id: int, name: str
+) -> Union[bool, dict]:
+    ids = await get_particulars(chat_id)
+    if name in ids:
+        return ids[name]
+
+
+async def update_particular_top(chat_id: int, name: str, vidid: dict):
+    ids = await get_particulars(chat_id)
+    ids[name] = vidid
+    await chattopdb.update_one(
+        {"chat_id": chat_id}, {"$set": {"vidid": ids}}, upsert=True
+)
+    
+# Top User DB
+
+
+async def get_userss(chat_id: int) -> Dict[str, int]:
+    ids = await userdb.find_one({"chat_id": chat_id})
+    if not ids:
+        return {}
+    return ids["vidid"]
+
+
+async def get_user_top(chat_id: int, name: str) -> Union[bool, dict]:
+    ids = await get_userss(chat_id)
+    if name in ids:
+        return ids[name]
+
+
+async def update_user_top(chat_id: int, name: str, vidid: dict):
+    ids = await get_userss(chat_id)
+    ids[name] = vidid
+    await userdb.update_one(
+        {"chat_id": chat_id}, {"$set": {"vidid": ids}}, upsert=True
+    )
+
+
+async def get_topp_users() -> dict:
+    results = {}
+    async for chat in userdb.find({"chat_id": {"$gt": 0}}):
+        user_id = chat["chat_id"]
+        total = 0
+        for i in chat["vidid"]:
+            counts_ = chat["vidid"][i]["spot"]
+            if counts_ > 0:
+                total += counts_
+        results[user_id] = total
+    return results
+ 
 
 async def get_assistant_number(chat_id: int) -> str:
     assistant = assistantdict.get(chat_id)
@@ -218,23 +337,6 @@ async def autoend_off():
     chat_id = 1234
     await autoenddb.delete_one({"chat_id": chat_id})
 
-async def is_autoleave() -> bool:
-    chat_id = 1234
-    user = await autoleavedb.find_one({"chat_id": chat_id})
-    if not user:
-        return False
-    return True
-
-
-async def autoleave_on():
-    chat_id = 1234
-    await autoleavedb.insert_one({"chat_id": chat_id})
-
-
-async def autoleave_off():
-    chat_id = 1234
-    await autoleavedb.delete_one({"chat_id": chat_id})
-
 
 async def get_loop(chat_id: int) -> int:
     lop = loop.get(chat_id)
@@ -333,6 +435,21 @@ async def music_on(chat_id: int):
 
 async def music_off(chat_id: int):
     pause[chat_id] = False
+
+# Muted
+async def is_muted(chat_id: int) -> bool:
+    mode = mute.get(chat_id)
+    if not mode:
+        return False
+    return mode
+
+
+async def mute_on(chat_id: int):
+    mute[chat_id] = True
+
+
+async def mute_off(chat_id: int):
+    mute[chat_id] = False
 
 
 async def get_active_chats() -> list:
@@ -509,7 +626,9 @@ async def add_served_chat(chat_id: int):
     if is_served:
         return
     return await chatsdb.insert_one({"chat_id": chat_id})
-
+    
+async def delete_served_chat(chat_id: int):
+    await chatsdb.delete_one({"chat_id": chat_id})
 
 async def blacklisted_chats() -> list:
     chats_list = []
@@ -666,3 +785,15 @@ async def remove_banned_user(user_id: int):
     if not is_gbanned:
         return
     return await blockeddb.delete_one({"user_id": user_id})
+
+# Private Served Chats
+
+
+async def get_private_served_chats() -> list:
+    chats_list = []
+    async for chat in privatedb.find({"chat_id": {"$lt": 0}}):
+        chats_list.append(chat)
+    return chats_list
+
+
+async de
