@@ -52,6 +52,12 @@ video = {}
 
 # Total Queries on bot
 
+async def is_autoleave() -> bool:
+    chat_id = 1234
+    user = await autoleavedb.find_one({"chat_id": chat_id})
+    if not user:
+        return False
+    return True
 
 async def get_queries() -> int:
     chat_id = 98324
