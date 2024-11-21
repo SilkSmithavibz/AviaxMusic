@@ -796,4 +796,131 @@ async def get_private_served_chats() -> list:
     return chats_list
 
 
-async de
+async def is_served_private_chat(chat_id: int) -> bool:
+    chat = await privatedb.find_one({"chat_id": chat_id})
+    if not chat:
+        return False
+    return True
+
+
+async def add_private_chat(chat_id: int):
+    is_served = await is_served_private_chat(chat_id)
+    if is_served:
+        return
+    return await privatedb.insert_one({"chat_id": chat_id})
+
+
+async def remove_private_chat(chat_id: int):
+    is_served = await is_served_private_chat(chat_id)
+    if not is_served:
+        return
+    return await privatedb.delete_one({"chat_id": chat_id})
+
+# SUGGESTION
+
+
+async def is_suggestion(chat_id: int) -> bool:
+    mode = suggestion.get(chat_id)
+    if not mode:
+        user = await suggdb.find_one({"chat_id": chat_id})
+        if not user:
+            suggestion[chat_id] = True
+            return True
+        suggestion[chat_id] = False
+        return False
+    return mode
+
+
+async def suggestion_on(chat_id: int):
+    suggestion[chat_id] = True
+    user = await suggdb.find_one({"chat_id": chat_id})
+    if user:
+        return await suggdb.delete_one({"chat_id": chat_id})
+
+
+async def suggestion_off(chat_id: int):
+    suggestion[chat_id] = False
+    user = await suggdb.find_one({"chat_id": chat_id})
+    if not user:
+        return await suggdb.insert_one({"chat_id": chat_id})
+
+# Clean Mode
+async def is_cleanmode_on(chat_id: int) -> bool:
+    if chat_id not in cleanmode:
+        return True
+    else:
+        return False
+
+
+async def cleanmode_off(chat_id: int):
+    if chat_id not in cleanmode:
+        cleanmode.append(chat_id)
+
+
+async def cleanmode_on(chat_id: int):
+    try:
+        cleanmode.remove(chat_id)
+    except:
+        pass
+
+
+# Audio Video Limit
+
+from pytgcalls.types.input_stream.quality import (HighQualityAudio,
+                                                  HighQualityVideo,
+                                                  LowQualityAudio,
+                                                  LowQualityVideo,
+                                                  MediumQualityAudio,
+                                                  MediumQualityVideo)
+
+
+async def save_audio_bitrate(chat_id: int, bitrate: str):
+    audio[chat_id] = bitrate
+
+
+async def save_video_bitrate(chat_id: int, bitrate: str):
+    video[chat_id] = bitrate
+
+
+async def get_aud_bit_name(chat_id: int) -> str:
+    mode = audio.get(chat_id)
+    if not mode:
+        return "High"
+    return mode
+
+
+async def get_vid_bit_name(chat_id: int) -> str:
+    mode = video.get(chat_id)
+    if not mode:
+        if PRIVATE_BOT_MODE == str(True):
+            return "High"
+        else:
+            return "Medium"
+    return mode
+
+
+async def get_audio_bitrate(chat_id: int) -> str:
+    mode = audio.get(chat_id)
+    if not mode:
+        return MediumQualityAudio()
+    if str(mode) == "High":
+        return HighQualityAudio()
+    elif str(mode) == "Medium":
+        return MediumQualityAudio()
+    elif str(mode) == "Low":
+        return LowQualityAudio()
+
+
+async def get_video_bitrate(chat_id: int) -> str:
+    mode = video.get(chat_id)
+    if not mode:
+        if PRIVATE_BOT_MODE == str(True):
+            return HighQualityVideo()
+        else:
+            return MediumQualityVideo()
+    if str(mode) == "High":
+        return HighQualityVideo()
+    elif str(mode) == "Medium":
+        return MediumQualityVideo()
+    elif str(mode) == "Low":
+        return LowQualityVideo()
