@@ -52,12 +52,39 @@ video = {}
 
 # Total Queries on bot
 
+async def is_autoend() -> bool:
+    chat_id = 1234
+    user = await autoenddb.find_one({"chat_id": chat_id})
+    if not user:
+        return False
+    return True
+
+
+async def autoend_on():
+    chat_id = 1234
+    await autoenddb.insert_one({"chat_id": chat_id})
+
+
+async def autoend_off():
+    chat_id = 1234
+    await autoenddb.delete_one({"chat_id": chat_id})
+
 async def is_autoleave() -> bool:
     chat_id = 1234
     user = await autoleavedb.find_one({"chat_id": chat_id})
     if not user:
         return False
     return True
+
+
+async def autoleave_on():
+    chat_id = 1234
+    await autoleavedb.insert_one({"chat_id": chat_id})
+
+
+async def autoleave_off():
+    chat_id = 1234
+    await autoleavedb.delete_one({"chat_id": chat_id})
 
 async def get_queries() -> int:
     chat_id = 98324
