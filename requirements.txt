@@ -27,9 +27,4 @@ yt-dlp
 youtube-search
 youtube-search-python
 
-# Audio Processing Libraries for Higher Sound Quality and Stereo Processing:
-librosa>=0.8.0  # For music and audio analysis, including stereo support
-soundfile>=0.10.3  # For reading and writing sound files in various formats
-audioread>=2.1.9  # To decode audio files for playback and processing
-pydub>=0.25.1  # For simple audio manipulation (e.g., slicing, concatenation)
-scipy>=1.9.0  # For advanced signal processing techniques
+# b
