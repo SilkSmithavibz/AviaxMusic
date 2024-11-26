@@ -23,8 +23,6 @@ spotipy
 tgcrypto
 unidecode
 uvloop
-pydub
-scipy
 yt-dlp
 youtube-search
 youtube-search-python
