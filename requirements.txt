@@ -1,28 +1,28 @@
-aiofiles                # For asynchronous file handling (important for bot's non-blocking I/O)
-aiohttp                 # Asynchronous HTTP client for Telegram API and web requests
-asyncio                 # Python's standard library for concurrency (usually not needed to list, it's part of the standard library)
-beautifulsoup4          # HTML parsing library for scraping or processing media-related data (like song lyrics)
-dnspython               # DNS toolkit (used by aiohttp for DNS resolution)
-ffmpeg-python           # Interface to FFmpeg, essential for audio/video processing
-gitpython               # Git functionality (if you're automating code deployments)
-hachoir                 # For metadata extraction from multimedia files (e.g., audio/video files)
-heroku3                 # Heroku API client (if deploying to Heroku)
-motor                   # Async driver for MongoDB (if you're using MongoDB for data storage)
-numpy                   # For numerical processing, may be useful for audio/video-related operations
-opencv-python           # OpenCV for video processing (only needed if your bot handles video/audio streams)
-pillow==9.5.0           # Image processing library (e.g., for thumbnail generation or other image manipulations)
-psutil                  # System and process monitoring (useful for tracking resources used by the bot)
-py-tgcalls==0.9.7       # Telegram voice call library (critical for voice chat functionality)
-pykeyboard              # For controlling the keyboard (useful for bot automation, if needed)
-git+https://github.com/KurimuzonAkuma/pyrogram/archive/v2.1.23.zip#egg=pyrogram  # Pyrogram (for Telegram Bot API integration)
-python-dotenv           # For managing environment variables (useful for secret keys and credentials)
-pyyaml                  # For parsing YAML files (often used for bot configuration)
-requests                # HTTP library for making requests (useful for APIs like Spotify, YouTube, etc.)
-speedtest-cli           # For testing network speed (optional, useful for troubleshooting)
-spotipy                 # Spotify Web API client (for interacting with Spotify's music service)
-tgcrypto                # For Telegram's crypto functions (important for handling encryption in Telegram messages)
-unidecode               # To remove accents from text (useful for normalizing track names)
-uvloop                  # Fast event loop for asyncio (helps boost performance when running asyncio-based code)
-yt-dlp                  # Modern alternative to youtube-dl, for downloading YouTube and other media
-youtube-search          # For searching YouTube videos (useful for your music bot to find tracks)
-youtube-search-python   # Python wrapper for YouTube search (can be used for finding songs)
+aiofiles
+aiohttp
+asyncio
+beautifulsoup4
+dnspython
+ffmpeg-python
+gitpython
+hachoir
+heroku3
+motor
+numpy
+opencv-python
+pillow==9.5.0
+psutil
+py-tgcalls==0.9.7
+pykeyboard
+https://github.com/KurimuzonAkuma/pyrogram/archive/v2.1.23.zip
+python-dotenv
+pyyaml
+requests
+speedtest-cli
+spotipy
+tgcrypto
+unidecode
+uvloop
+yt-dlp
+youtube-search
+youtube-search-python
