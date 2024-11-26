@@ -8,7 +8,6 @@ gitpython
 hachoir
 heroku3
 motor
-v2
 numpy
 opencv-python
 pillow==9.5.0
