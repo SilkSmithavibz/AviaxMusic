@@ -50,8 +50,8 @@ PRIVACY_LINK = getenv("PRIVACY_LINK", "https://telegra.ph/Privacy-Policy-for-Avi
 
 
 # Get this credentials from https://developer.spotify.com/dashboard
-SPOTIFY_CLIENT_ID = getenv("SPOTIFY_CLIENT_ID", None)
-SPOTIFY_CLIENT_SECRET = getenv("SPOTIFY_CLIENT_SECRET", None)
+SPOTIFY_CLIENT_ID = getenv("SPOTIFY_CLIENT_ID", "041c81b3aab54b5da5c98572a01e44fb")
+SPOTIFY_CLIENT_SECRET = getenv("SPOTIFY_CLIENT_SECRET", "77be4769cc064ed1b112760c503392e0")
 
 
 # Maximum limit for fetching playlist's track from youtube, spotify, apple links.
@@ -65,7 +65,7 @@ TG_VIDEO_FILESIZE_LIMIT = int(getenv("TG_VIDEO_FILESIZE_LIMIT", 2145386496))
 
 
 # Get your pyrogram v2 session from Replit
-STRING1 = "BQAf70YAO4uMSBOVkIhgFPtga2QV2qMTr7vQHUVmBe7LkXcKlq_f7X-XmG5VVMKe5dqewIAnzKqikmd02VS1sKD9KSl2GG6g3VFCxlTJ2aIiwPoiSyCxGbwxuQyBXfy_xV2mtvu9HOjgyI0y3Hdu0yTDKcHPt50bXBg7AyCNLH_wQ28y3kT4li5NYhnz_PwG0dJpsoG1nyHhCM35Tqdbtk9xWjVJrFomNYEgBz0qjoc4XLl2Ff8gO3TGBNjhutn2L9crXf3A4qlYGNS0P0zGt0vCPh7WRmHxGQX0-oIRxj-LVk6-44R2wlmFnYzQ0uFFANUJgv8p2YentIvQaLUmhfP3SRUdUAAAAAHFNds6AA"
+STRING1 = getenv("STRING_SESSION1", "BQAf70YAO4uMSBOVkIhgFPtga2QV2qMTr7vQHUVmBe7LkXcKlq_f7X-XmG5VVMKe5dqewIAnzKqikmd02VS1sKD9KSl2GG6g3VFCxlTJ2aIiwPoiSyCxGbwxuQyBXfy_xV2mtvu9HOjgyI0y3Hdu0yTDKcHPt50bXBg7AyCNLH_wQ28y3kT4li5NYhnz_PwG0dJpsoG1nyHhCM35Tqdbtk9xWjVJrFomNYEgBz0qjoc4XLl2Ff8gO3TGBNjhutn2L9crXf3A4qlYGNS0P0zGt0vCPh7WRmHxGQX0-oIRxj-LVk6-44R2wlmFnYzQ0uFFANUJgv8p2YentIvQaLUmhfP3SRUdUAAAAAHFNds6AA")
 STRING2 = getenv("STRING_SESSION2", None)
 STRING3 = getenv("STRING_SESSION3", None)
 STRING4 = getenv("STRING_SESSION4", None)
